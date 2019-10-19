@@ -1,4 +1,4 @@
-package builder.User;
+package builder.user;
 
 public class UserAdress {
     private String streetName;

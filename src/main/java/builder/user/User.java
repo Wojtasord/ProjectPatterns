@@ -1,5 +1,9 @@
-package builder.User;
+package builder.user;
 
+import lombok.Data;
+import org.apache.commons.validator.routines.EmailValidator;
+
+@Data
 public class User {
 
     private String name;
@@ -8,47 +12,16 @@ public class User {
     private Sex sex;
     private UserAdress adress;
 
-    private User() {
+    public static UserBuilder aUser() {
+        return new UserBuilder();
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public Sex getSex() {
-        return sex;
-    }
-
-    public UserAdress getAdress() {
-        return adress;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setSex(Sex sex) {
-        this.sex = sex;
-    }
-
-    public void setAdress(UserAdress adress) {
-        this.adress = adress;
+    public boolean validateMail() {
+        EmailValidator emailValidator = EmailValidator.getInstance();
+        if (emailValidator.isValid(email)) {
+            return true;
+        }
+        return false;
     }
 
     public static class UserBuilder {
@@ -59,10 +32,6 @@ public class User {
         private UserAdress adress;
 
         private UserBuilder() {
-        }
-
-        public static UserBuilder aUser() {
-            return new UserBuilder();
         }
 
         public UserBuilder withName(String name) {
@@ -98,6 +67,8 @@ public class User {
             user.setSex(sex);
             user.setAdress(adress);
             return user;
+
         }
+
     }
 }
